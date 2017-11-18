@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(SchoolDays\User::class, function (Faker $faker) {
     static $password;
 
     return [
@@ -21,5 +21,9 @@ $factory->define(App\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'school_id'=>function(){
+            return factory('SchoolDays\Models\School')->create()->id;
+        },
+        'role'=>$faker->randomElement(project('users.roles'))
     ];
 });

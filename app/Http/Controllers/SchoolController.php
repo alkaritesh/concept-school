@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace SchoolDays\Http\Controllers;
 
-use App\Models\School;
+use SchoolDays\Models\School;
 use Illuminate\Http\Request;
 
 class SchoolController extends Controller
@@ -41,7 +41,7 @@ class SchoolController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\School  $school
+     * @param  \SchoolDays\Models\School  $school
      * @return \Illuminate\Http\Response
      */
     public function show(School $school)
@@ -52,7 +52,7 @@ class SchoolController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\School  $school
+     * @param  \SchoolDays\Models\School  $school
      * @return \Illuminate\Http\Response
      */
     public function edit(School $school)
@@ -64,7 +64,7 @@ class SchoolController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\School  $school
+     * @param  \SchoolDays\Models\School  $school
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, School $school)
@@ -75,7 +75,7 @@ class SchoolController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\School  $school
+     * @param  \SchoolDays\Models\School  $school
      * @return \Illuminate\Http\Response
      */
     public function destroy(School $school)

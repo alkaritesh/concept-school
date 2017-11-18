@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace SchoolDays;
 
+use SchoolDays\Models\UserVerification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','role','status'
     ];
 
     /**
@@ -26,4 +27,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * user verification is related to users
+     */
+    public function userVerification()
+    {
+        $this->hasMany(UserVerification::class);
+    }
+  
 }

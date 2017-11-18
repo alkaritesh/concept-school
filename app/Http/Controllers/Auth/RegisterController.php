@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace SchoolDays\Http\Controllers\Auth;
 
-use App\User;
-use App\Http\Controllers\Controller;
+use SchoolDays\Jobs\SendVerificationMail;
+use SchoolDays\Models\UserVerification;
+use SchoolDays\User;
+use SchoolDays\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Ramsey\Uuid\Uuid;
 
 class RegisterController extends Controller
 {
@@ -58,14 +61,36 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \SchoolDays\User
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user=User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'status'=>'unverified',
             'password' => bcrypt($data['password']),
         ]);
+
+        $verification = UserVerification::create([
+           'user_id'=>$user->id,
+           'code'=>Uuid::uuid1()->toString()
+        ]);
+
+        dispatch(new SendVerificationMail($user,$verification->code));
+        return $user;
+    }
+
+    public function verify($code)
+    {
+        $users = UserVerification::whereCode($code)->get();
+        if ($users && $users->count() > 0)
+        {
+            UserVerification::find($users->user_id)->delete();
+            return redirect()->with('success','YaY ! Your account verified successfully!');
+        }
+        else{
+            return redirect('login')->with('error','Oh! You are not verified !');
+        }
     }
 }

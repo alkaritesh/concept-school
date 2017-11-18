@@ -2,15 +2,16 @@
 
 @section('content')
 
-  <form class="form-horizontal form-material" id="loginform" action="index.html">
-      <h3 class="box-title m-b-20">Sign In</h3>
+  <form class="form-horizontal form-material" id="loginform" action="{{ route('login') }}">
+      {{ csrf_field() }}
+      <h3 class="box-title m-b-20">Please Login Here To Continue</h3>
       <div class="form-group ">
           <div class="col-xs-12">
-              <input class="form-control" type="text" required="" placeholder="Username"> </div>
+              <input class="form-control" name="email" type="text" required="" placeholder="Username"> </div>
       </div>
       <div class="form-group">
           <div class="col-xs-12">
-              <input class="form-control" type="password" required="" placeholder="Password"> </div>
+              <input class="form-control" name="password" type="password" required="" placeholder="Password"> </div>
       </div>
       <div class="form-group">
           <div class="col-md-12">
@@ -24,17 +25,9 @@
               <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Log In</button>
           </div>
       </div>
-      <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
-              <div class="social">
-                  <a href="javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip" title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a>
-                  <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="Login with Google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </a>
-              </div>
-          </div>
-      </div>
       <div class="form-group m-b-0">
           <div class="col-sm-12 text-center">
-              <p>Don't have an account? <a href="register.html" class="text-info m-l-5"><b>Sign Up</b></a></p>
+              <p>Don't have an account? <a href="{{ route('register') }}" class="text-info m-l-5"><b>Sign Up</b></a></p>
           </div>
       </div>
   </form>
